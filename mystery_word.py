@@ -28,7 +28,7 @@ for each in word_list:
 
 
 def word_difficulty():
-    entry = input("Select difficulty level: E, N, H:  ").lower()
+    entry = input("Select difficulty level: (E)asy, (N)ormal, (H)ard:  ").lower()
     if entry == 'e':
         return easy_words
     elif entry == 'n':
@@ -54,7 +54,7 @@ def display_board(guesses_left):
     print("\t",end='')
     for each in mwl:
         print("_ ",end='')
-    print("\t\t\t*** You have {} guesses left. ***".format(guesses_left))
+    print("\t\t*** You have {} guesses left. ***".format(guesses_left))
     print("\n\n")
     return
 
@@ -83,8 +83,37 @@ def change_display_letters(guess):
         letters_to_display.pop(pos+1)
 
 
+def did_you_win():
+    for each in letters_to_display:
+        if each == "#":
+            win = False
+            return win
+    win = True
+    return win
+
+
+def end(winner):
+    if winner:
+        print("\n"*50)
+        print("*"*60)
+        print("\t\t       YOU WON !!!!!")
+        print("*"*60)
+        print("\n\n\n\n\n")
+    else:
+        print("\n"*50)
+        print("-"*40)
+        print("\t   Sorry, you lost")
+        print("-"*40)
+        print("\n\n")
+
+
+#========================================================================
+
 print("\n"*50)
-print("WELCOME")
+print("#"*40)
+print("\t   WELCOME TO HANGMAN")
+print("#"*40)
+print("\n\n")
 
 game_list = word_difficulty()
 
@@ -112,10 +141,14 @@ while alive:
 
     change_display_letters(guess)
 
+    winner = did_you_win()
+    if winner:
+        break
+
     if position_of_corr == []:
         guesses_left -= 1
 
     if guesses_left <= 0:
         alive = False
 
-# ending()
+end(winner)
