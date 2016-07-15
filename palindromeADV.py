@@ -52,4 +52,5 @@ def is_palindrome(entry):
     return is_a_pal
 
 
+if __name__ == __main__
 main()
