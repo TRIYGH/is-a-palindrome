@@ -5,6 +5,7 @@ import random
 
 word_list = []
 alive = True
+play_again = True
 
 with open('/usr/share/dict/words','r') as f:
     for line in f:
@@ -45,7 +46,8 @@ def get_myst_word(game_list):
 
 def display_board(guesses_left):
     print("\n"*50)
-    print(myst_word)
+    print("               The word you must guess has {} letters.".format(round(len(letters_to_display)/2)))
+    print("\n",myst_word,"\n\n")
     print("\t",end='')
     for each in letters_to_display:
         print(each,end='')
@@ -56,16 +58,21 @@ def display_board(guesses_left):
         print("_ ",end='')
     print("\t\t*** You have {} guesses left. ***".format(guesses_left))
     print("\n\n")
+    print(" "*5,"Guesses so far: ",end='')
+    for each in all_guesses:
+        print(each," ",end='')
+    print("\n")
     return
 
 
 def get_guess():
     while True:
         entry = input("\n Guess a letter: ").lower()
-        if entry not in all_guesses:
-            all_guesses.append(entry)
-            return entry
-        print("You already guessed that letter  -  try again\n")
+        if validate_guess(entry):
+            if entry not in all_guesses:
+                all_guesses.append(entry)
+                return entry
+            print("\n***** You already guessed that letter  -  try again *****")
 
 
 def check_guess(g):
@@ -104,51 +111,69 @@ def end(winner):
         print("-"*40)
         print("\t   Sorry, you lost")
         print("-"*40)
+        print("\n\tThe word was:  {} ".format(myst_word))
         print("\n\n")
 
+    ask = input("--- Would you like to play again? (y/n) ")
+    if ask == 'y' or ask == 'Y':
+        return True
+    return False
+
+
+def validate_guess(entry):
+    if len(entry) > 1:
+        return False
+    if entry not in 'abcdefghijklmnopqrstuvwxyz':
+        return False
+    return True
 
 #========================================================================
+while play_again:
+    print("\n"*50)
+    print("#"*40)
+    print("\t   WELCOME TO HANGMAN")
+    print("#"*40)
+    print("\n\n")
 
-print("\n"*50)
-print("#"*40)
-print("\t   WELCOME TO HANGMAN")
-print("#"*40)
-print("\n\n")
+    game_list = word_difficulty()
 
-game_list = word_difficulty()
+    myst_word = get_myst_word(game_list)
+    myst_word = myst_word.lower()
+    print(myst_word,end='')
+    mwl = list(myst_word)
+    mwl.pop()
+    print(len(mwl))
+    letters_to_display = []
+    for each in mwl:
+        letters_to_display.append('#')
+        letters_to_display.append(' ')
+    all_guesses = []
+    position_of_corr = []
+    guesses_left = 8
+    extra_guess = False
 
-myst_word = get_myst_word(game_list)
-myst_word = myst_word.lower()
-print(myst_word)
-mwl = list(myst_word)
-mwl.pop()
-letters_to_display = []
-for each in mwl:
-    letters_to_display.append('#')
-    letters_to_display.append(' ')
-all_guesses = []
-position_of_corr = []
-guesses_left = 8
-extra_guess = False
+    while alive:
 
-while alive:
+        display_board(guesses_left)
 
-    display_board(guesses_left)
+        guess = get_guess()
 
-    guess = get_guess()
+        position_of_corr = check_guess(guess)
 
-    position_of_corr = check_guess(guess)
+        change_display_letters(guess)
 
-    change_display_letters(guess)
+        winner = did_you_win()
+        if winner:
+            break
 
-    winner = did_you_win()
-    if winner:
-        break
+        if position_of_corr == []:
+            guesses_left -= 1
 
-    if position_of_corr == []:
-        guesses_left -= 1
+        if guesses_left <= 0:
+            alive = False
 
-    if guesses_left <= 0:
-        alive = False
+    play_again = end(winner)
 
-end(winner)
+#
+#if __name__ == '__main__':
+#    main()
