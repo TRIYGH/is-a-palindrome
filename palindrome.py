@@ -1,7 +1,5 @@
 # W1D3 Wednesday Palindrome - NORMAL
 
-import re
-
 
 def main():
     print("\nPlease enter something:  ",end='')
@@ -11,24 +9,9 @@ def main():
 
     if entry > "":
         if prep(entry):
-            print("you a P")
+            print("This is a Palindrome")
         else:
-            print("ain't")
-
-
-# def is_palindrome(fr_half_list, bk_half_list, is_a_pal):
-#     x = 0
-#     for each in fr_half_list:
-#         theletter = bk_half_list[x]
-#         #print(theletter)
-#         if each != theletter:
-#             is_a_pal = False
-#             #print("########## false ##########")
-#             return is_a_pal
-#         else:
-#             x += 1
-#     is_a_pal = True
-#     return is_a_pal
+            print("NOPE - notta")
 
 
 def is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len):
@@ -75,6 +58,26 @@ def prep(entry):
     return is_a_pal
 
 
+main()
+
+
+
+# def is_palindrome(fr_half_list, bk_half_list, is_a_pal):
+#     x = 0
+#     for each in fr_half_list:
+#         theletter = bk_half_list[x]
+#         #print(theletter)
+#         if each != theletter:
+#             is_a_pal = False
+#             #print("########## false ##########")
+#             return is_a_pal
+#         else:
+#             x += 1
+#     is_a_pal = True
+#     return is_a_pal
+
+
+
     # if front_half == back_half:     #easy way
     #     is_a_pal = True             #easy way
     # else:                           #easy way
@@ -96,5 +99,3 @@ def prep(entry):
    # for each in each_letter:
    #     if each not in good_chars:
    #         print(each)
-
-main()
