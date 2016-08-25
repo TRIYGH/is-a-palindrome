@@ -1,8 +1,9 @@
-# W1D3 Wednesday Palindrome - NORMAL
+# W1D3 Wednesday Palindrome - ADVANCED
+
 
 def main():
     print("\n"*50)
-    print("\nPlease enter something:  ",end='')
+    print("\nPlease enter something:  ", end='')
     entry = input().lower()
 
     if entry > "":
@@ -13,28 +14,24 @@ def main():
 
 
 def is_palindrome(entry):
-    entry_stripped = entry.replace(' ','')
+    entry_stripped = entry.replace(' ', '')
     p_len = len(entry_stripped)
     middle = int(p_len / 2)
-    each_letter = list(entry_stripped)
 
     front_half = entry_stripped[:middle]
 
-    if p_len%2 == 0:
+    if p_len % 2 == 0:
         back_half = entry_stripped[middle:]
     else:
         back_half = entry_stripped[middle+1:]
 
+    # back_half = back_half[::-1]        --------------
+    # bk_half_list = list(back_half)     SUPER EASY WAY
 
-
-    #back_half = back_half[::-1]        --------------
-    #bk_half_list = list(back_half)     SUPER EASY WAY
-
-    #if front_half == back_half:               |
+    # if front_half == back_half:               |
     #    is_a_pal = True
-    #else:                                     |
+    # else:                                     |
     #    is_a_pal = False               ______________
-
 
     fr_half_list = list(front_half)
     back_half = back_half[::-1]
@@ -51,6 +48,6 @@ def is_palindrome(entry):
     is_a_pal = True
     return is_a_pal
 
-
-if __name__ == __main__
 main()
+# if __name__ == '__main__':
+#     unittest.main()

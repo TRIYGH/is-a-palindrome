@@ -1,17 +1,21 @@
 # W1D3 Wednesday Palindrome - NORMAL
+import re
 
 
 def main():
-    print("\nPlease enter something:  ",end='')
-    entry = input().lower()
-    print(entry)
-
+    entry = get_input()
 
     if entry > "":
         if prep(entry):
             print("This is a Palindrome")
         else:
             print("NOPE - notta")
+
+
+def get_input():
+    print("\nPlease enter something:  ", end='')
+    entry = input().lower()
+    return entry
 
 
 def is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len):
@@ -26,8 +30,8 @@ def is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len):
 
 
 def prep(entry):
-    entry_stripped = entry.replace(' ','')
-    entry_stripped = re.sub('[^a-z0-9]','',entry_stripped)
+    entry_stripped = entry.replace(' ', '')
+    entry_stripped = re.sub('[^a-z0-9]', '', entry_stripped)
     p_len = len(entry_stripped)
 
     if p_len == 1:
@@ -35,25 +39,23 @@ def prep(entry):
         return is_a_pal
 
     middle = int(p_len / 2)
-    #print(entry_stripped)
-    each_letter = list(entry_stripped)
 
     front_half = entry_stripped[:middle]
 
-    if p_len%2 == 0:
+    if p_len % 2 == 0:
         back_half = entry_stripped[middle:]
     else:
         print(middle)
         back_half = entry_stripped[middle+1:]
 
     fr_half_list = list(front_half)
-    back_half = back_half[::-1]     #easy way
+    back_half = back_half[::-1]     # easy way
     bk_half_list = list(back_half)
-    print(fr_half_list,bk_half_list,"******")
+    print(fr_half_list, bk_half_list, "******")
 
     is_a_pal = False
     pal_len = middle
-    is_a_pal = is_palindrome(fr_half_list, bk_half_list, is_a_pal,pal_len)
+    is_a_pal = is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len)
     print(is_a_pal)
     return is_a_pal
 
