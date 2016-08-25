@@ -20,13 +20,13 @@ def get_input():
 
 def is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len):
     if pal_len < 0:
-        return
+        return True
     if fr_half_list[pal_len - 1] != bk_half_list[pal_len - 1]:
         is_a_pal = False
         return is_a_pal
-    is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len - 1)
-    is_a_pal = True
-    return is_a_pal
+    return is_palindrome(fr_half_list, bk_half_list, is_a_pal, pal_len - 1)
+    # is_a_pal = True
+    # return is_a_pal
 
 
 def prep(entry):
@@ -62,6 +62,8 @@ def prep(entry):
 
 main()
 
+
+# print(is_palindrome('asdf', 'fdsa', False, 4))
 
 
 # def is_palindrome(fr_half_list, bk_half_list, is_a_pal):
